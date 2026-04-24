@@ -1,0 +1,6 @@
+@LoanDash.Api_HostAddress = http://localhost:5033
+
+GET {{LoanDash.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

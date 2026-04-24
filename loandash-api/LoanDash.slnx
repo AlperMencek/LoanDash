@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LoanDash.Api/LoanDash.Api.csproj" />
+    <Project Path="src/LoanDash.Application/LoanDash.Application.csproj" />
+    <Project Path="src/LoanDash.Domain/LoanDash.Domain.csproj" />
+    <Project Path="src/LoanDash.Infrastructure/LoanDash.Infrastructure.csproj" />
+  </Folder>
+</Solution>
