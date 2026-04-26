@@ -22,7 +22,7 @@ public class Loan
     public int LoanId {get; set;}
     // Foreign key to Borrower
     public int BorrowerId {get; set;}
-    public decimal PricipalAmount {get; set;}
+    public decimal PrincipalAmount {get; set;}
     public decimal InterestRate {get; set;}
 
     public int TermMonths {get; set;}
