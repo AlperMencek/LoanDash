@@ -3,22 +3,23 @@
     Implements the ILoanRepository interface, providing methods to interact with the Loan data in the database.
     Complex queries specific to loans handled here.
 */
+using LoanDash.Application.DTOs;
+using LoanDash.Application.Services.Interfaces;
 using LoanDash.Domain.Entities;
 using LoanDash.Domain.Enums;
 using LoanDash.Infrastructure.Data;
-using LoanDash.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+
 
 namespace LoanDash.Infrastructure.Repositories;
 
-public class LoanRepository : BaseRepository<Loan>
+public class LoanRepository : BaseRepository<Loan>, ILoanRepository
 {
     public LoanRepository(LoanDashDbContext context) : base(context)
     {
     }
     //get paginated list of loans with optional filter on status
-    public async Task<(IEnumerable<Loan>, int totalCount)> GetLoansAsync(int page, int pageSize, LoanStatus? status = null)
+    public async Task<(IEnumerable<Loan>, int)> GetLoansAsync(int page, int pageSize, LoanStatus? status = null)
     {   //base query with borrower included 
         var query = _context.Loans
         .Include(l => l.Borrower).AsQueryable(); // ef join
@@ -75,7 +76,7 @@ public class LoanRepository : BaseRepository<Loan>
         var monthlyPayments = await _context.Payments
             .Where(p => p.PaymentDate >= sixMonthsAgo)
             .GroupBy(p => new { p.PaymentDate.Year, p.PaymentDate.Month })
-            .Select(g => new MonthlyPaymentVolume
+            .Select(g => new MonthlyPaymentVolumeDTO
             {
                 Year        = g.Key.Year,
                 Month       = g.Key.Month,
@@ -96,25 +97,7 @@ public class LoanRepository : BaseRepository<Loan>
             MonthlyPaymentVolume    = monthlyPayments
         };
     }
-    //DTO for port summary, this is the object that will be sent to frontend 
-    public class PortfolioSummaryData
-    {
-        public decimal TotalOutstandingBalance { get; set; }
-        public int ActiveCount { get; set; }
-        public int DelinquentCount { get; set; }
-        public int PaidOffCount { get; set; }
-        public int DefaultCount { get; set; }
-        public decimal WeightedAvgInterestRate { get; set; }
-        public decimal DelinquencyRate { get; set; }
-        public List<MonthlyPaymentVolume> MonthlyPaymentVolume { get; set; } = new();
-    }
 
-    public class MonthlyPaymentVolume
-    {
-        public int Year { get; set; }
-        public int Month { get; set; }
-        public decimal TotalAmount { get; set; }
-    }
 
     
 }

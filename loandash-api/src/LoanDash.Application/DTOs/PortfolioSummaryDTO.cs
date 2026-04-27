@@ -1,5 +1,5 @@
 namespace LoanDash.Application.DTOs;
-public class PortfolioSummaryDTO
+public class PortfolioSummaryData
 {
     public decimal TotalOutstandingBalance { get; set; }
     public int ActiveCount { get; set; }
@@ -8,11 +8,11 @@ public class PortfolioSummaryDTO
     public int DefaultCount { get; set; }
     public decimal WeightedAvgInterestRate { get; set; }
     public decimal DelinquencyRate { get; set; }
-    public List<MonthlyPaymentVolumeDto> MonthlyPaymentVolume { get; set; } = new();
+    public List<MonthlyPaymentVolumeDTO> MonthlyPaymentVolume { get; set; } = new();
 }
 
 //payment volume for how much was paid
-public class MonthlyPaymentVolumeDto
+public class MonthlyPaymentVolumeDTO
 {
     public int Year { get; set; }
     public int Month { get; set; }

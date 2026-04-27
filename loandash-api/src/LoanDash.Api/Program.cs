@@ -5,6 +5,11 @@
 using LoanDash.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
+//Dependency injection
+using LoanDash.Application.Services.Interfaces;
+using LoanDash.Application.Services;
+using LoanDash.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
@@ -15,6 +20,13 @@ builder.Services.AddSwaggerGen();
 // Database
 builder.Services.AddDbContext<LoanDashDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Repositories
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+
+// Services
+builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<IPortfolioService, PortfolioService>();
 
 // allow CORS for Angular frontend
 builder.Services.AddCors(options =>

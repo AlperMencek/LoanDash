@@ -6,5 +6,5 @@ namespace LoanDash.Application.Services.Interfaces;
 
 public interface IPortfolioService
 {
-    Task<PortfolioSummaryDTO> GetPortfolioSummaryAsync();
+    Task<PortfolioSummaryData> GetPortfolioSummaryAsync();
 }
