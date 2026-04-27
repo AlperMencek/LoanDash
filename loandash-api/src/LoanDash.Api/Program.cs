@@ -40,4 +40,12 @@ app.UseCors("AllowAngular");
 app.UseAuthorization();
 app.MapControllers();
 
+//Seed data 
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<LoanDashDbContext>();
+    await DataSeeder.Seed(dbContext);
+}
+
 app.Run();
