@@ -20,5 +20,6 @@ public class Borrower
     public string LastName { get; set; }
     public string Email { get; set; }
     public DateTime CreatedAt { get; set; }
-    public ICollection<Loan> Loans { get; set; } = new List<Loan>(); 
+    public ICollection<Loan> Loans { get; set; } = new List<Loan>();
+    public int CreditScore { get; set; }
 }

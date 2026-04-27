@@ -4,6 +4,7 @@ using LoanDash.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanDash.Infrastructure.Migrations
 {
     [DbContext(typeof(LoanDashDbContext))]
-    partial class LoanDashDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427194129_AddCreditScoreToBorrower")]
+    partial class AddCreditScoreToBorrower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
