@@ -1,5 +1,5 @@
 namespace LoanDash.Application.DTOs;
-public class LoanListItemDto
+public class LoanListItemDTO
 {
     public int LoanId { get; set; }
     public string BorrowerFullName { get; set; } = string.Empty;
