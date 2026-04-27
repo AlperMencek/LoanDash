@@ -21,7 +21,7 @@ public class LoanRepository : BaseRepository<Loan>
     public async Task<(IEnumerable<Loan>, int totalCount)> GetLoansAsync(int page, int pageSize, LoanStatus? status = null)
     {   //base query with borrower included 
         var query = _context.Loans
-        .Include(l => l.Borrower).AsQueryable();
+        .Include(l => l.Borrower).AsQueryable(); // ef join
 
         if (status.HasValue)
         {
