@@ -15,7 +15,7 @@ namespace LoanDash.Domain.Entities;
 
 public class Borrower
 {
-    public string BorrowerId { get; set; }
+    public int BorrowerId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
