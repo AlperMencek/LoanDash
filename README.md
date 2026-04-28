@@ -29,9 +29,15 @@ LoanDash/
 
 ## Architecture
 
-The backend follows clean architecture with four distinct layers:
-Dependency flow: `Api → Application → Domain`. Infrastructure implements interfaces defined in Application. Controllers are thin — they receive requests, call services, and return responses. No business logic lives in the API layer.
+**LoanDash.Domain** — Contains all entity(model) definitions (`Borrower`, `Loan`, `Payment`) and the `LoanStatus` enum. No dependencies on any other layer.
 
+**LoanDash.Application** — Responsible for all business logic and data processing. Contains services, DTOs, and repository interfaces. Depends only on Domain.
+
+**LoanDash.Infrastructure** — Implements the repository interfaces defined in Application. Contains EF Core configuration, DbContext, migrations, and the DataSeeder. The only layer that interacts directly to SQL Server.
+
+**LoanDash.Api** — Contains all controllers and endpoint definitions. Receives HTTP requests, calls Application services, and returns JSON responses.
+
+Dependency flow: `Api → Application ← Infrastructure`. Domain has no dependencies.
 ---
 
 ## Prerequisites
