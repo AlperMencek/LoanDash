@@ -1,0 +1,67 @@
+.detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    flex: 1;
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.info-label {
+  color: #666;
+  font-size: 13px;
+}
+
+.payments-card {
+  mat-card-content {
+    padding-top: 16px;
+  }
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.status-active     { background: #E8F5E9; color: #2E7D32; }
+  &.status-delinquent { background: #FFF3E0; color: #E65100; }
+  &.status-paidoff    { background: #EEEEEE; color: #424242; }
+  &.status-default    { background: #FFEBEE; color: #C62828; }
+}

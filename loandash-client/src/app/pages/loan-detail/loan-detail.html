@@ -1,1 +1,121 @@
-<p>loan-detail works!</p>
+<div class="detail-container">
+
+  @if (loading) {
+    <div class="spinner-container">
+      <mat-spinner />
+    </div>
+  } @else if (notFound) {
+    <mat-card>
+      <mat-card-content>
+        <p>Loan not found.</p>
+        <a mat-button routerLink="/loans">Back to Loans</a>
+      </mat-card-content>
+    </mat-card>
+  } @else if (loan) {
+
+    <div class="detail-header">
+      <a mat-button routerLink="/loans">← Back to Loans</a>
+      <h1>Loan #{{ loan.loanId }}</h1>
+      <span class="status-badge" [ngClass]="getStatusClass(loan.status)">
+        {{ loan.status }}
+      </span>
+    </div>
+
+    <!-- Borrower Card -->
+    <div class="cards-grid">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Borrower</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-row">
+            <span class="info-label">Name</span>
+            <span>{{ loan.borrowerFullName }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span>{{ loan.borrowerEmail }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Credit Score</span>
+            <span>{{ loan.creditScore }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Loan Card -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Loan Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-row">
+            <span class="info-label">Principal</span>
+            <span>{{ loan.principalAmount | currency }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Outstanding Balance</span>
+            <span>{{ loan.outstandingBalance | currency }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Interest Rate</span>
+            <span>{{ (loan.interestRate * 100) | number:'1.2-2' }}%</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Term</span>
+            <span>{{ loan.termMonths }} months</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Originated</span>
+            <span>{{ loan.originationDate | date:'MMM d, y' }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Maturity Date</span>
+            <span>{{ loan.maturityDate | date:'MMM d, y' }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Payment History -->
+    <mat-card class="payments-card">
+      <mat-card-header>
+        <mat-card-title>Payment History ({{ loan.payments.length }})</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-table [dataSource]="loan.payments">
+
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+            <mat-cell *matCellDef="let p">{{ p.paymentDate | date:'MMM d, y' }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="amountPaid">
+            <mat-header-cell *matHeaderCellDef>Amount Paid</mat-header-cell>
+            <mat-cell *matCellDef="let p">{{ p.amountPaid | currency }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="principalPortion">
+            <mat-header-cell *matHeaderCellDef>Principal</mat-header-cell>
+            <mat-cell *matCellDef="let p">{{ p.principalPortion | currency }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="interestPortion">
+            <mat-header-cell *matHeaderCellDef>Interest</mat-header-cell>
+            <mat-cell *matCellDef="let p">{{ p.interestPortion | currency }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="remainingBalance">
+            <mat-header-cell *matHeaderCellDef>Remaining Balance</mat-header-cell>
+            <mat-cell *matCellDef="let p">{{ p.remainingBalance | currency }}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="paymentColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: paymentColumns;"></mat-row>
+
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+
+  }
+</div>

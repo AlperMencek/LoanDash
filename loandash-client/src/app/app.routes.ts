@@ -17,7 +17,7 @@ export const routes: Routes = [
     },
     {
         path: 'loans/:id',
-        loadComponent: () => import('./pages/loan-detail/loan-detail').then(m => m.LoanDetail)
+        loadComponent: () => import('./pages/loan-detail/loan-detail').then(m => m.LoanDetailComponent)
     },
     {
         path: '**',
