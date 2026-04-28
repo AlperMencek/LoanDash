@@ -26,7 +26,8 @@ public class LoanService : ILoanService
             InterestRate       = l.InterestRate,
             Status             = l.Status.ToString(),
             OriginationDate    = l.OriginationDate,
-            MaturityDate       = l.MaturityDate
+            MaturityDate       = l.MaturityDate,
+            TotalPayments       = (int)l.Payments.Count()
         });
         return (dtos, totalCount);
     }

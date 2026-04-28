@@ -9,4 +9,5 @@ public class LoanListItemDTO
     public string Status { get; set; } = string.Empty;
     public DateTime OriginationDate { get; set; }
     public DateTime MaturityDate { get; set; }
+    public int TotalPayments { get; set; }
 }
