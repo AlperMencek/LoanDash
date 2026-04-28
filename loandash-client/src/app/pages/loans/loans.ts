@@ -55,7 +55,7 @@ export class Loans implements OnInit {
   loadLoans() {
     this.loading = true;
     this.cdr.markForCheck();
-
+    //dependending on what filter is selected, query the backend 
     this.loanService.getLoans(this.pageIndex + 1, this.pageSize, this.selectedStatus).subscribe({
       next: response => {
         this.loans = response.data;
