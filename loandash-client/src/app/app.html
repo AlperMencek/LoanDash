@@ -1,0 +1,11 @@
+<div>
+    <mat-toolbar color="primary">
+        <span>LoanDash</span>
+        <span class="spacer"></span>
+        <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+        <a mat-button routerLink="/loans" routerLinkActive="active-link">Loans</a>
+    </mat-toolbar>
+    <div style="padding: 24px;">
+    <router-outlet/>
+    </div>
+</div>
