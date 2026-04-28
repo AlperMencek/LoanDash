@@ -267,8 +267,14 @@ erDiagram
 ## Screenshots
 
 - Dashboard
+<img width="1590" height="791" alt="Screenshot 2026-04-28 at 1 05 59 PM" src="https://github.com/user-attachments/assets/f86de32a-b6a2-4d56-85f5-eafb0d8a58e7" />
+
 - Loans
+<img width="1565" height="847" alt="Screenshot 2026-04-28 at 12 29 44 PM" src="https://github.com/user-attachments/assets/8024f5c6-280e-4fff-b171-21b22498ae28" />
+
 - Loan-detail
+<img width="1430" height="804" alt="Screenshot 2026-04-28 at 12 30 04 PM" src="https://github.com/user-attachments/assets/0620b341-2521-4653-ad06-d1c050b72c69" />
+
 
 ---
 
