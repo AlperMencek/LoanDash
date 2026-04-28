@@ -2,6 +2,12 @@
     PortfolioController.cs
     API controller for portfolio related endpoints.
     - GET /api/portfolio - get portfolio summary data for dashboard
+    returns 
+    - total outstanding balance
+    - counts of active, delinquent, paid off, defaulted loans
+    - weighted average interest rate
+    - delinquency rate
+    - monthly payment volume for last 12 months
 */
 
 using LoanDash.Application.Services.Interfaces;
