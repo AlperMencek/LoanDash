@@ -25,7 +25,7 @@ public class PortfolioController : ControllerBase
         _portfolioService = portfolioService;
     }  
 
-    [HttpGet]
+    [HttpGet("summary")]
     public async Task<IActionResult> GetPortfolioSummary()
     {
         var summary = await _portfolioService.GetPortfolioSummaryAsync();

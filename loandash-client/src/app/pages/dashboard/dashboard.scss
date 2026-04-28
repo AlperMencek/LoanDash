@@ -1,0 +1,34 @@
+.dashboard {
+  padding: 20px;
+}
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}   
+.chart-card {
+  margin-bottom: 20px;
+}
+.chart-card .chart-container {
+  position: relative;
+  height: 300px;
+}
+.chart-card .chart-container canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}   
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
