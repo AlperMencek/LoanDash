@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { LoanService } from '../../services/loan.service';
 import { LoanListItem } from '../../models/loan.models';
 import { RouterLink } from '@angular/router';
-import { error } from 'console';
 @Component({
   selector: 'app-loans',
   imports: [
@@ -39,12 +38,15 @@ export class Loans implements OnInit {
   loans: LoanListItem[] = [];
   totalLoans = 0;
   pageSize = 10;
-  pageIndex = 1;
-  loading = false;
+  pageIndex = 0;
+  loading = true;
   selectedStatus = '';
   statuses = ['', 'Active', 'Delinquent', 'PaidOff', 'Defaulted'];
 
-  constructor(private loanService: LoanService) {}
+  constructor(
+    private loanService: LoanService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.loadLoans();
@@ -52,26 +54,33 @@ export class Loans implements OnInit {
 
   loadLoans() {
     this.loading = true;
-    this.loanService.getLoans(this.pageIndex , this.pageSize, this.selectedStatus).subscribe(response => {
-      this.loans = response.data;
-      this.totalLoans = response.totalCount;
-      this.loading = false;
-    }, error => {
-      console.error('Error loading loans', error);
-      this.loading = false;
+    this.cdr.markForCheck();
+
+    this.loanService.getLoans(this.pageIndex + 1, this.pageSize, this.selectedStatus).subscribe({
+      next: response => {
+        this.loans = response.data;
+        this.totalLoans = response.totalCount;
+        this.loading = false;
+        this.cdr.markForCheck();
+      },
+      error: (err: any) => {
+        console.error('Error loading loans', err);
+        this.loading = false;
+        this.cdr.markForCheck();
+      }
     });
   }
 
 
   onPageChange(event: PageEvent) {
-    this.pageIndex = event.pageIndex+1;
+    this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadLoans();
   }
 
   onStatusChange(status: string) {
     this.selectedStatus = status;
-    this.pageIndex = 1
+    this.pageIndex = 0; // Reset to first page when filter changes
     this.loadLoans();
   }
 
