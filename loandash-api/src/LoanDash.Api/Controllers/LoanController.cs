@@ -7,7 +7,6 @@
     returns loan details including payment history and borrower info
     
 */
-using LoanDash.Domain.Entities;
 using LoanDash.Domain.Enums;
 using LoanDash.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
