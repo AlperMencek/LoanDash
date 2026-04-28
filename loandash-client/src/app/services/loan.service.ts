@@ -35,14 +35,14 @@ export class LoanService {
       params = params.set('status', status);
     }
 
-    return this.http.get<PaginatedResponse<LoanListItem>>(`${this.apiUrl}/loans`, { params });
+    return this.http.get<PaginatedResponse<LoanListItem>>(`${this.apiUrl}/Loan`, { params });
   }
 
   getLoanById(id: number): Observable<LoanDetail> {
-    return this.http.get<LoanDetail>(`${this.apiUrl}/loans/${id}`);
+    return this.http.get<LoanDetail>(`${this.apiUrl}/Loan/${id}`);
   }
 
   getPortfolioSummary(): Observable<PortfolioSummary> {
-    return this.http.get<PortfolioSummary>(`${this.apiUrl}/portfolio/summary`);
+    return this.http.get<PortfolioSummary>(`${this.apiUrl}/Portfolio/summary`);
   }
 }

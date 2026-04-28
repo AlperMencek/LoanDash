@@ -1,1 +1,81 @@
-<p>loans works!</p>
+<div class="loans-container">
+  <div class="loans-header">
+    <h1>Loan Portfolio</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Status</mat-label>
+      <mat-select [value]="selectedStatus" (selectionChange)="onStatusChange($event.value)">
+        <mat-option value="">All</mat-option>
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Delinquent">Delinquent</mat-option>
+        <mat-option value="PaidOff">Paid Off</mat-option>
+        <mat-option value="Default">Default</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (loading) {
+    <div class="spinner-container">
+      <mat-spinner />
+    </div>
+  } @else {
+    <mat-table [dataSource]="loans" class="loans-table">
+
+      <ng-container matColumnDef="borrowerFullName">
+        <mat-header-cell *matHeaderCellDef>Borrower</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ loan.borrowerFullName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="principalAmount">
+        <mat-header-cell *matHeaderCellDef>Principal</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ loan.principalAmount | currency }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="outstandingBalance">
+        <mat-header-cell *matHeaderCellDef>Balance</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ loan.outstandingBalance | currency }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="interestRate">
+        <mat-header-cell *matHeaderCellDef>Rate</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ (loan.interestRate * 100) | number:'1.2-2' }}%</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let loan">
+          <span class="status-badge" [ngClass]="getStatusClass(loan.status)">
+            {{ loan.status }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="originationDate">
+        <mat-header-cell *matHeaderCellDef>Originated</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ loan.originationDate | date:'MMM d, y' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPayments">
+        <mat-header-cell *matHeaderCellDef>Payments</mat-header-cell>
+        <mat-cell *matCellDef="let loan">{{ loan.totalPayments }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let loan">
+            <a mat-button color="primary" [routerLink]="['/loans', loan.loanId]">View</a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator
+      [length]="   totalLoans"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 25, 50]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  }
+</div>
